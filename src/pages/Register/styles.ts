@@ -22,6 +22,9 @@ export const Container = styled.div`
 
   p {
     text-align: center;
+  }
+
+  p + p {
     margin-top: 10px;
   }
 `;
@@ -93,31 +96,6 @@ export const QrReaderBox = styled.div`
   }
 `;
 
-export const ModalBox = styled.div`
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-`;
-
-export const Modal = styled(animated.div)`
-  height: 90vh;
-  width: 100vw;
-  background: #fff;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  padding: 30px 20px 0;
-  position: absolute;
-  bottom: 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  h3 {
-    text-align: center;
-  }
-`;
-
 export const ModalFooter = styled.div`
   min-height: 60px;
   flex: 1;
@@ -148,39 +126,5 @@ export const ProductList = styled.ul`
 
   p {
     text-align: left;
-  }
-`;
-
-export const PopupBox = styled.div`
-  height: 100vh;
-  width: 100vw;
-  background: rgba(0, 0, 0, 0.6);
-  position: absolute;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Popup = styled(animated.div)`
-  height: 150px;
-  width: 300px;
-  padding: 30px 0;
-  background: #fff;
-  border-radius: 24px;
-  z-index: 10;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  > button {
-    display: flex;
-    align-items: center;
-
-    svg {
-      margin-left: 10px;
-    }
   }
 `;
