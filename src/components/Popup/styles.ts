@@ -5,7 +5,9 @@ export const ContainerBackdrop = styled.div`
   height: 100vh;
   width: 100vw;
   background: rgba(0, 0, 0, 0.6);
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   display: flex;
   justify-content: center;

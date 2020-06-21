@@ -1,12 +1,5 @@
-import React, {
-  useCallback,
-  useState,
-  useEffect,
-  useRef,
-  MouseEvent,
-} from 'react';
+import React, { useCallback, useState } from 'react';
 import QrReader from 'react-qr-reader';
-import { useTransition } from 'react-spring';
 import { FiCheckCircle } from 'react-icons/fi';
 
 import { Container, QrReaderBox, ProductList, ModalFooter } from './styles';
@@ -24,12 +17,18 @@ interface Product {
 const Register: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showAddPopup, setShowAddPopup] = useState(false);
+  const [showSendPopup, setShowSendPopup] = useState(false);
 
   const handleOpenModal = useCallback(() => setShowModal(true), []);
   const handleCloseModal = useCallback(() => setShowModal(false), []);
 
-  const handleClosePopup = useCallback(() => setShowPopup(false), []);
+  const handleCloseAddPopup = useCallback(() => setShowAddPopup(false), []);
+  const handleCloseSendPopup = useCallback(() => {
+    setShowSendPopup(false);
+    setShowModal(false);
+    setProducts([]);
+  }, []);
 
   const addProduct = useCallback(
     (scannedProduct: Omit<Product, 'quantity'>) => {
@@ -52,19 +51,15 @@ const Register: React.FC = () => {
     [products],
   );
 
-  const transformData = useCallback(data => {
-    return JSON.parse(data);
-  }, []);
-
   const handleScan = useCallback(
     data => {
       if (data) {
-        const product = transformData(data);
+        const product = JSON.parse(data);
         addProduct(product);
-        setShowPopup(true);
+        setShowAddPopup(true);
       }
     },
-    [addProduct, transformData],
+    [addProduct],
   );
 
   const handleError = useCallback(err => {
@@ -84,8 +79,7 @@ const Register: React.FC = () => {
     //   { headers },
     // );
 
-    setShowModal(false);
-    setProducts([]);
+    setShowSendPopup(true);
   }, [products]);
 
   return (
@@ -122,12 +116,21 @@ const Register: React.FC = () => {
         <ModalFooter>
           <Button onClick={handleEnviarProdutos}>Enviar</Button>
         </ModalFooter>
+
+        <Popup show={showSendPopup} onClose={handleCloseSendPopup}>
+          <h2>Enviado com sucesso!</h2>
+
+          <Button onClick={handleCloseSendPopup}>
+            Ok
+            <FiCheckCircle size={18} />
+          </Button>
+        </Popup>
       </Modal>
 
-      <Popup show={showPopup} onClose={handleClosePopup}>
+      <Popup show={showAddPopup} onClose={handleCloseAddPopup}>
         <h2>Produto Adicionado!</h2>
 
-        <Button onClick={handleClosePopup}>
+        <Button onClick={handleCloseAddPopup}>
           Ok
           <FiCheckCircle size={18} />
         </Button>
