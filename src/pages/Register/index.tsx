@@ -91,7 +91,6 @@ const Register: React.FC = () => {
           onError={handleError}
           onScan={handleScan}
           style={{ width: '100%' }}
-          facingMode="user"
         />
 
         <span />
