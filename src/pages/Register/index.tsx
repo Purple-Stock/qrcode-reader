@@ -73,11 +73,11 @@ const Register: React.FC = () => {
       quantity: product.quantity,
     }));
 
-    // await api.post(
-    //   'purchase_products/add_products',
-    //   { products: productsData },
-    //   { headers },
-    // );
+    await api.post(
+      'purchase_products/add_products',
+      { products: productsData },
+      { headers },
+    );
 
     setShowSendPopup(true);
   }, [products]);
